@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Banana Water Collector</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #1a1a2e, #16213e);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        #gameContainer {
+            display: flex;
+            flex-direction: row;
+            position: relative;
+        }
+        canvas {
+            display: block;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            background: #0f0f23;
+        }
+        #scoreboard {
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            margin-left: 20px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+        #scoreboard div {
+            font-size: 24px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        #timeDisplay {
+            font-size: 32px;
+        }
+        #scoreDisplay {
+            color: #ff9500;
+            text-shadow: 0 0 10px #ff9500, 0 0 20px rgba(255, 149, 0, 0.5);
+        }
+        .meter {
+            width: 250px;
+            height: 30px;
+            display: block;
+            margin: 15px 0;
+            background: #333;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+        .meter-fill {
+            height: 100%;
+            transition: width 0.3s ease;
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        #bananaMeter { background: linear-gradient(to right, #ffeb3b, #ffd700); }
+        #waterMeter { background: linear-gradient(to right, #00b7ff, #007bff); }
+        #restart {
+            color: #ff4444;
+            font-size: 28px;
+            text-shadow: 0 0 15px #ff4444;
+            display: none;
+            margin-top: 20px;
+        }
+        #gameMessage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            display: none;
+            text-align: center;
+        }
+        #hourDisplay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 80px;
+            color: rgba(255, 255, 255, 0.5); /* 50% transparent */
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            display: none;
+            text-align: center;
+            pointer-events: none; /* Prevents interference with gameplay */
+            z-index: 10; /* Ensures it’s above canvas but below UI */
+        }
+        #instructions {
+            position: absolute;
+            top: 50%;
+            left: 35%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            text-align: center;
+            line-height: 1.5;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="800" height="800"></canvas>
+        <div id="scoreboard">
+            <div id="timeDisplay">Time: <span id="time">3:53 AM</span></div>
+            <div id="scoreDisplay">Score: <span id="score">0</span></div>
+            <div><span style="color: #ffd700">Bananas</span>: <span id="bananaScore">0 / 20</span></div>
+            <div class="meter"><div id="bananaMeter" class="meter-fill" style="width: 0%;"></div></div>
+            <div><span style="color: #00b7ff">Water</span>: <span id="waterScore">0 / 15</span></div>
+            <div class="meter"><div id="waterMeter" class="meter-fill" style="width: 0%;"></div></div>
+            <div id="restart">Press R to Restart</div>
+        </div>
+        <div id="instructions">
+            Collect 20 <span style="color: #ffd700">bananas</span> and 15 <span style="color: #00b7ff">waters</span>.<br>
+            Avoid the beer.<br>
+            Survive until 8:00AM.<br>
+            Press any key to start.
+        </div>
+    </div>
+    <div id="gameMessage"></div>
+    <div id="hourDisplay"></div>
+    <audio id="backgroundMusic" loop>
+        <source src="background.mp3" type="audio/mpeg">
+    </audio>
+    <script src="game.js"></script>
+</body>
+</html>
